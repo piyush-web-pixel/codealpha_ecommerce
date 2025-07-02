@@ -1,0 +1,165 @@
+{% load static %}
+{% include 'header.html' %}
+
+<style>
+    body {
+        background-color: #f1f3f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .register-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 35px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .register-container h2 {
+        text-align: center;
+        color: #2874f0;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #2874f0;
+        outline: none;
+    }
+
+    .gender-group {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+
+    
+    .extra-links {
+        text-align: center;
+        margin-top: 15px;
+        
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background-color: #2874f0;
+        color: white;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #1861d2;
+    }
+
+    .error-message {
+        color: red;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 600px) {
+        .register-container {
+            margin: 20px;
+            padding: 20px;
+        }
+    }
+</style>
+
+<div class="register-container">
+    <h2>Create Your Account</h2>
+
+    {% if output %}
+        <div class="error-message">{{ output }}</div>
+    {% endif %}
+
+    <form method="post" action="/register/">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email ID</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" name="mobile" id="mobile" maxlength="10" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea name="address" id="address" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <select name="city" id="city" required>
+                <option value="">-- Select City --</option>
+                <option>Indore</option>
+                <option>Bhopal</option>
+                <option>Ujjain</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Gender</label>
+            <div class="gender-group">
+                <label><input type="radio" name="gender" value="male" required> Male</label>
+                <label><input type="radio" name="gender" value="female" required> Female</label>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Register</button>
+          <div class="extra-links">
+            <a href="/login/" style="text-decoration: none;">Login</a>
+        </div>
+    </form>
+</div>
+
+{% include 'footer.html' %}

@@ -1,0 +1,90 @@
+{% load static %}
+{% include 'header.html' %}
+
+<style>
+    body {
+        background-color: #f1f3f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .forgot-container {
+        max-width: 400px;
+        margin: 60px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .forgot-container h2 {
+        text-align: center;
+        color: #2874f0;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input[type="email"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #2874f0;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .message {
+        color: green;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .error {
+        color: red;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="forgot-container">
+    <h2>Forgot Password</h2>
+
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% endif %}
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="email">Enter your registered email</label>
+            <input type="email" name="email" required>
+        </div>
+        <button type="submit" class="submit-btn">Send Reset Link</button>
+    </form>
+</div>
+
+{% include 'footer.html' %}
