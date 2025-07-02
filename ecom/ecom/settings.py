@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-%om1zhn_(f6$h^j3a*siy($uq*&qjaw6lsb!^#dy_=cf)j6j4p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['*']
+=======
+ALLOWED_HOSTS = ["*"]
+>>>>>>> a502fbdb84e7c5991fe0bea65e73e725537be526
 
 
 # Application definition
@@ -136,4 +140,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
 RAZORPAY_KEY_ID = 'rzp_test_Nv6tz1kaLYiNAi'
+<<<<<<< HEAD
 RAZORPAY_KEY_SECRET = 'qVStzQz0YTMu4NzlihlOgKB3'
+=======
+RAZORPAY_KEY_SECRET = 'qVStzQz0YTMu4NzlihlOgKB3'
+>>>>>>> a502fbdb84e7c5991fe0bea65e73e725537be526
