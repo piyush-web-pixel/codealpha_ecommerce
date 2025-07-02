@@ -1,0 +1,13 @@
+
+
+
+{% load static %}
+{% include 'usernav.html' %}
+
+<div class="container text-center my-5">
+  <img src="{% static 'images/success.png' %}" alt="Success" width="150">
+  <h2 class="mt-4 text-success">Payment Successful!</h2>
+  <p>Thank you for your order. We have received your payment.</p>
+  <a href="/userhome/" class="btn btn-primary mt-3">Continue Shopping</a>
+
+</div>

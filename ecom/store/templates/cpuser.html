@@ -1,0 +1,121 @@
+{% load static %}
+
+<style>
+/* Container styling */
+#page {
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+#page h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Success/Error message */
+#page font {
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    
+}
+
+/* Label styling */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Input styling */
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Submit button */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+}
+
+/* Login link styled as a button */
+.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    text-decoration: none;
+    background-color: #6c757d;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    background-color: #5a6268;
+}
+</style>
+
+<div id="page">
+    {% if output %}
+    <font style="font-size: 16px;">
+        {{ output }}
+    </font>
+    {% endif %}
+
+    <h2>🔐 Change Password</h2>
+
+    <form method="post" action="/cpuser/">
+        {% csrf_token %}
+
+        <label for="opassword">Old Password</label>
+        <input type="password" name="opassword" id="opassword" required>
+
+        <label for="npassword">New Password</label>
+        <input type="password" name="npassword" id="npassword" required>
+
+        <label for="cnpassword">Confirm New Password</label>
+        <input type="password" name="cnpassword" id="cnpassword" required>
+
+        <input type="submit" value="Change Password">
+    </form>
+
+    <a href="/login/" class="login-link">🔑 Back to Login</a>
+</div>

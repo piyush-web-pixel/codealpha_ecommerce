@@ -1,0 +1,82 @@
+{% load static %}
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .cart-container {
+      padding: 40px 20px;
+    }
+
+    .cart-table {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-summary {
+      border-top: 2px solid #f0f0f0;
+      padding-top: 20px;
+    }
+
+    .remove-btn {
+      color: #dc3545;
+      text-decoration: none;
+    }
+
+    .remove-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container cart-container">
+  <h2 class="mb-4">🛒 Your Shopping Cart</h2>
+  
+  {% if cart %}
+    <div class="table-responsive cart-table">
+      <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for id, item in cart.items %}
+          <tr>
+            <td><strong>{{ item.name }}</strong></td>
+            <td>₹{{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>₹{{ item.price|floatformat:2|floatformat }} × {{ item.quantity }} = ₹{{ item.price|floatformat:2|floatformat|floatformat }}</td>
+            <td>
+              <a href="{% url 'remove_from_cart' id %}" class="remove-btn">Remove ❌</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cart-summary mt-4">
+      <h4>Total Amount: <span class="text-success">₹{{ total }}</span></h4>
+      <a href="/checkout/" class="btn btn-primary mt-3">Proceed to Checkout</a>
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      Your cart is empty. Go back and <a href="/" class="alert-link">add some products</a>.
+    </div>
+  {% endif %}
+</div>
+
+{% include 'footer.html' %}
+</body>
+</html>

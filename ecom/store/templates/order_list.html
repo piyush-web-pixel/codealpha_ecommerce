@@ -1,0 +1,24 @@
+<h2>Your Orders</h2>
+{% for order in orders %}
+  <!-- <p>{{ order.product.name }} - {{ order.status }} - {{ order.order_date }}
+   (ID: {{product.id }}) – 
+    Status: {{ order.status }} – 
+    Ordered on: {{ order.order_date }}
+    
+<p>DEBUG - Product: {{ order.product }}</p>
+<p>DEBUG - Product ID: {{ order.product.id }}</p>
+  </p> -->
+
+
+    <p>
+    <strong>{{ order.product.pname }}</strong><br>
+    Product ID: {{ order.product.id }}<br>
+    Quantity: {{ order.quantity }}<br>
+    Status: {{ order.status }}<br>
+    Ordered on: {{ order.order_date }}
+  </p>
+  {% if order.status == 'Pending' %}
+    <a href="{% url 'cancel_order' order.id %}">Cancel</a>
+  {% endif %}
+  <hr>
+{% endfor %}
