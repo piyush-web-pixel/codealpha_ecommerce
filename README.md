@@ -1,29 +1,29 @@
-🛍️ About This Project
-Welcome to my E-Commerce Website project — a fully functional online store built using Django and Razorpay for secure payment integration. This platform replicates the core features of real-world eCommerce websites and is designed to provide a smooth shopping experience from product browsing to checkout.
+# 🛍️ Django E-Commerce Website
 
-🚀 Key Features
-🔐 User Authentication with Email Verification
+A fully functional **E-Commerce web application** built using **Django**, featuring secure payment integration with **Razorpay**. This project simulates a complete online store experience, from user registration with email verification to checkout and payment.
 
-🛒 Product Listings with Category Filtering
+---
 
-👤 User Profiles and Order History
+## 🚀 Features
 
-🧺 Add to Cart and Checkout Functionality
+- 🔐 User registration with **email verification**
+- 🛒 Add to cart, update quantity, remove items
+- 💳 **Secure online payments** via Razorpay
+- 📬 Email confirmation and notifications
+- 🛍️ Product listings with categories and filtering
+- 👤 User dashboard with order history
+- 🧑‍💼 Admin panel for product and order management
+- 📱 Responsive design with Bootstrap
 
-💳 Secure Payments using Razorpay Gateway
+---
 
-📩 Email Notifications on Registration
+## 🛠️ Tech Stack
 
-📦 Order Management System (Admin Dashboard)
+- **Backend:** Django (Python)
+- **Frontend:** HTML, CSS, Bootstrap
+- **Database:** SQLite
+- **Payment Gateway:** Razorpay
+- **Email Backend:** Django Email Service (SMTP/Gmail)
+- **Hosting:**  Localhost
 
-📱 Responsive UI using Bootstrap
-
-🧑‍💻 Tech Stack
-Backend: Django, Python
-
-Frontend: HTML, CSS, Bootstrap
-
-Database: SQLite
-
-Payment Gateway: Razorpay
-
+---
