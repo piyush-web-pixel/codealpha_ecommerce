@@ -7,14 +7,7 @@ from . import emailAPI
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from .models import Product, Order
-
 import razorpay
-from django.conf import settings
-
-
-
-
-
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
@@ -37,15 +30,17 @@ def men(request):
     return render(request,'men.html',{"product":product})
 
 
+
+
 def women(request):
-    product =models.Product.objects.all()
+    product = Product.objects.filter(category__iexact="women", available=True)
+    return render(request, 'user_women.html', {"product": product})
 
-    return render(request,'women.html',{"product":product})
+def mobile(request):
+    product = Product.objects.filter(category__iexact="mobile", available=True)
+    return render(request, 'user_mobile.html', {"product": product})
 
 
-# def checkout(request):
-#     product =models.Product.objects.all()
-#     return render(request,'checkout.html',{'product':product})
 
 def detail(request,slug):
     product = models.Product.objects.get(slug=slug)  
@@ -56,29 +51,7 @@ def detail(request,slug):
 def address(request):
     return render(request,'address.html')
 
-# def place_order(request):
-#     if request.method == 'POST':
-#         name = request.POST['full_name']
-#         phone = request.POST['phone']
-#         email = request.POST.get('email')
-#         address = request.POST['address']
-#         city = request.POST['city']
-#         state = request.POST['state']
-#         zip_code = request.POST['zip']
-#         notes = request.POST.get('notes')
 
-#         # Save to database or process order logic here...
-
-#         return HttpResponse("Order placed successfully!")
-#     return redirect('checkout')
-
-
-
-
-def mobile(request):
-    product =models.Product.objects.all()
-
-    return render(request,'mobile.html',{"product":product})
 
 
 
@@ -155,19 +128,6 @@ def checkout(request):
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
-
-# @csrf_exempt
-# def place_order(request):
-#     # product = models.Product.objects.get()
-#      if request.method == 'POST':
-#         product_id = request.POST.get('product_id')
-#         # now use product_id
-#         product = get_object_or_404(Product, id=product_id)
-#         Order.objects.create(user=request.user, product=product)
-#         return redirect('order_list')  # Redirect to order list page
-#      else :
-#         return HttpResponseBadRequest("Invalid request method. Please use POST.")
-            
 
 
 @csrf_exempt
@@ -261,11 +221,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Order
 from django.contrib.auth.decorators import login_required
 
-# @login_required
-# def place_order(request, product_id):
-#     product = get_object_or_404(Product, id=product_id)
-#     Order.objects.create(user=request.user, product=product)
-#     return redirect('order_list')  # Redirect to order list page
 
 
 
@@ -295,21 +250,18 @@ def user_men(request):
     return render(request,'user_men.html',{"product":product})
 
 
-def user_women(request):
-    product =models.Product.objects.all()
-    return render(request,'user_women.html',{"product":product})
 
+
+
+def user_women(request):
+    product = Product.objects.filter(category__iexact="women", available=True)
+    return render(request, 'user_women.html', {"product": product})
 
 def user_mobile(request):
-    product =models.Product.objects.all()
-
-    return render(request,'user_mobile.html',{"product":product})
-
+    product = Product.objects.filter(category__iexact="mobile", available=True)
+    return render(request, 'user_mobile.html', {"product": product})
 
 
-# def profile_view(request):
-#     orders = Order.objects.filter(user=request.user).order_by('-created_at')
-#     return render(request, 'profile.html', {'orders': orders})
 
 
 def profile(request):
@@ -450,96 +402,6 @@ def manageuserstatus(request):
 
     return redirect("/manage_order/")
 
-    # return render(request, 'profile.html')
-# new addition today 
-
-# def my_orders(request):
-#     orders = Order.objects.filter(user=request.user).order_by("-created_at")
-#     return render(request, "my_orders.html", {"orders": orders})
-
-# def order_success(request):
-#     return render(request, "order_success.html")
-
-
-
-# # views.py
-# @csrf_exempt
-# def payment_success(request):
-#     if request.method == "POST":
-#         data = request.POST
-#         razorpay_order_id = data.get("razorpay_order_id")
-#         razorpay_payment_id = data.get("razorpay_payment_id")
-
-#         # Update order
-#         try:
-#             order = Order.objects.get(razorpay_order_id=razorpay_order_id)
-#             order.razorpay_payment_id = razorpay_payment_id
-#             order.payment_status = "Paid"
-#             order.save()
-#             return redirect("order_success")
-#         except Order.DoesNotExist:
-#             return HttpResponse("Order not found", status=404)
-
-#     return HttpResponse("Invalid request", status=400)
-
-
-
-# # models.py
-# from django.db import models
-# from django.contrib.auth.models import User
-
-# class Order(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     product_name = models.CharField(max_length=255)
-#     amount = models.FloatField()
-#     razorpay_order_id = models.CharField(max_length=100)
-#     razorpay_payment_id = models.CharField(max_length=100)
-#     payment_status = models.CharField(max_length=20, default="Pending")
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return f"{self.product_name} - {self.user.username}"
-
-# # views.py
-# import razorpay
-# from django.conf import settings
-# from .models import Order
-# from django.views.decorators.csrf import csrf_exempt
-
-# client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-
-# def initiate_payment(request, product_id):
- 
-#     product = models.Product.objects.get(id=product_id)
-#     amount = int(product.price * 100)
-
-#     data = {
-#         "amount": amount,
-#         "currency": "INR",
-#         "receipt": f"receipt_{product.id}",
-#     }
-
-#     razorpay_order = client.order.create(data=data)
-
-#     # Save order in DB with "Pending" status
-#     order = Order.objects.create(
-#         user=request.user,
-#         product_name=product.pname,
-#         amount=amount / 100,
-#         razorpay_order_id=razorpay_order["id"],
-#         payment_status="Pending"
-#     )
-
-#     context = {
-#         "order": order,
-#         "product": product,
-#         "razorpay_key": settings.RAZORPAY_KEY_ID,
-#     }
-
-#     return render(request, "checkout.html", context)
-
-
-
 
 
 
@@ -596,3 +458,17 @@ def epuser(request):
         return redirect("/epuser/")
 
 
+
+
+def search(request):
+    query = request.GET.get('q')
+
+    if query:
+        products = models.Product.objects.filter(pname__icontains=query)
+    else:
+        products = models.Product.objects.all()
+
+    return render(request, 'search.html', {
+        'products': products,
+        'query': query
+    })

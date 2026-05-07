@@ -10,6 +10,7 @@ class Product(models.Model):
     available=models.BooleanField(default=False)
     image = models.ImageField(upload_to='media/product_img')
     discount_price = models.FloatField(blank=True, null=True)  # Optional
+    category = models.CharField(max_length=50)
 
     # Optional: auto calculate discount percentage
     @property
@@ -54,13 +55,7 @@ class Contact(models.Model):
     info=models.CharField(max_length=50)
 
 
-# class Product(models.Model):
-#     name = models.CharField(max_length=100)
-#     price = models.FloatField()
-#     # Add more fields as needed (image, description, etc.)
 
-#     def __str__(self):
-#         return self.name
 
 class Order(models.Model):
     STATUS_CHOICES = (
@@ -78,29 +73,3 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.product.pname} ({self.status})"
 
-
-# class Women(models.Model):
-#     pname=models.CharField(max_length=100)
-#     slug = models.SlugField(unique=True, blank=True)
-#     pdescription=models.CharField(max_length=200,null=False)
-#     prize=models.IntegerField(null=False)
-#     available=models.BooleanField(default=False)
-#     image = models.ImageField(upload_to='media/product_img')
-
-    
-
-# models.py
-# from django.db import models
-# from django.contrib.auth.models import User
-
-# class Order(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     product_name = models.CharField(max_length=255)
-#     amount = models.FloatField()
-#     razorpay_order_id = models.CharField(max_length=100)
-#     razorpay_payment_id = models.CharField(max_length=100)
-#     payment_status = models.CharField(max_length=20, default="Pending")
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return f"{self.product_name} - {self.user.username}"

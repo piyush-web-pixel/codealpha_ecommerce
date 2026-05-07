@@ -30,7 +30,7 @@ urlpatterns = [
   # path('profile_view/',views.profile_view),
   path('profile/',views.profile),
   path('edit_profile/',views.edit_profile),
-  path('detail/<slug:slug>/',views.detail),
+  path('detail/<slug:slug>/',views.detail, name='detail'),
   path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
   path('cart-count/', views.cart_count, name='cart_count'),
   path('checkout/', views.checkout, name='checkout'),
@@ -43,6 +43,7 @@ urlpatterns = [
   path('order_list/', views.order_list),
   path('epuser/', views.epuser),
   path('cpuser/', views.cpuser),
+  path('search/', views.search, name='search'),
   
 
 ]
